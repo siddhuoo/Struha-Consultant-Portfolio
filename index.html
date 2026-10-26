@@ -1,0 +1,1033 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Struha Consultant Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout concept: a drawing sheet. Hairline frames, column-grid bubbles for markers, title-block tables for facts. */
+:root{
+  --bg:#F4F7F9; --surface:#FCFDFE; --tint:#E9F0F4; --ink:#263744; --ink-2:#60717E; --line:#D5DFE6;
+  --accent:#2D668A; --accent-ink:#FFFFFF; --signal:#B77F3D; --shadow:0 1px 2px rgba(43,75,96,.04),0 8px 24px rgba(43,75,96,.08);
+  --f-display:'IBM Plex Sans Condensed','Arial Narrow',Arial,sans-serif;
+  --f-body:'IBM Plex Sans',Arial,sans-serif;
+  --f-mono:'IBM Plex Mono','Courier New',monospace;
+  --maxw:1160px;
+  color-scheme:light;
+  /* Clearer liquid glass: restrained blur, translucent surfaces and bright specular edges. */
+  --glass-bg:rgba(255,255,255,.36);
+  --glass-border:rgba(255,255,255,.72);
+  --glass-shadow:0 14px 38px rgba(43,75,96,.10),0 3px 12px rgba(179,130,66,.055);
+  --glass-blur:blur(8px) saturate(155%);
+  --glass-highlight:rgba(255,255,255,.62);
+  --section-wash:rgba(243,247,249,.38);
+  --accent-rgb:45,102,138;
+  --secondary-rgb:183,127,61;
+}
+:root[data-theme="dark"]{
+  --bg:#131C22; --surface:#1D282F; --tint:#202D35; --ink:#EFF4F7; --ink-2:#B4C2CB; --line:rgba(207,224,233,.2);
+  --accent:#84B7D2; --accent-ink:#13232C; --signal:#D9AF70; --shadow:0 2px 8px rgba(0,0,0,.16),0 12px 30px rgba(0,0,0,.17);
+  color-scheme:dark;
+  --glass-bg:rgba(29,40,47,.48);
+  --glass-border:rgba(234,245,250,.27);
+  --glass-shadow:0 14px 38px rgba(0,0,0,.16),0 3px 14px rgba(91,139,164,.08);
+  --glass-highlight:rgba(255,255,255,.24);
+  --section-wash:rgba(16,24,29,.46);
+  --accent-rgb:132,183,210;
+  --secondary-rgb:217,175,112;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.55 var(--f-body);-webkit-font-smoothing:antialiased;
+  padding-block:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--surface)}
+img{display:block;max-width:100%}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;line-height:1.05;margin:0;text-wrap:balance;color:var(--ink)}
+p{margin:0}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:var(--maxw);margin-inline:auto}
+.mono{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.bleed{margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px))}
+
+#bgVideo{position:fixed;inset:0;width:100%;height:100%;padding:clamp(16px,2.5vw,36px);object-fit:contain;object-position:center;background:var(--bg);z-index:0;pointer-events:none;filter:saturate(.82)}
+.background-wash{position:fixed;inset:0;z-index:1;pointer-events:none;background:var(--section-wash)}
+
+/* Five-second structural drawing intro. */
+.intro-loader{position:fixed;inset:0;z-index:40;display:grid;place-items:center;overflow:hidden;background:var(--bg);color:var(--ink);opacity:1;visibility:visible;transition:opacity .45s ease,visibility 0s linear .45s}
+.intro-loader.is-hidden{opacity:0;visibility:hidden;pointer-events:none}
+.intro-content{display:grid;justify-items:center;align-content:center;gap:14px;width:min(calc(100% - 32px),420px);min-height:100%;padding:28px;text-align:center}
+.intro-building{width:min(66vw,300px);height:auto;overflow:visible}
+.intro-building path{fill:none;stroke:var(--ink);stroke-width:1.35;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.intro-building .draw{stroke-dasharray:1;stroke-dashoffset:1;animation:building-draw .72s cubic-bezier(.4,0,.2,1) forwards}
+.intro-building .crane{animation-delay:.08s}
+.intro-building .outline{animation-delay:.45s}
+.intro-building .columns{animation-delay:.92s}
+.intro-building .floor-1{animation-delay:1.22s}
+.intro-building .floor-2{animation-delay:1.48s}
+.intro-building .floor-3{animation-delay:1.74s}
+.intro-building .floor-4{animation-delay:2s}
+.intro-building .floor-5{animation-delay:2.26s}
+.intro-building .detail{animation-delay:2.52s}
+.intro-brand{font:600 14px/1 var(--f-mono);letter-spacing:.2em;text-transform:uppercase}
+.intro-title{font:500 13px/1.5 var(--f-body);letter-spacing:.08em;color:var(--ink-2);text-transform:uppercase}
+.intro-dots{display:flex;gap:7px;margin-top:3px}
+.intro-dots i{width:5px;height:5px;border-radius:50%;background:rgba(var(--secondary-rgb),.3);animation:intro-dot .55s ease forwards;animation-delay:calc(var(--dot-index)*.95s)}
+.intro-dots i:nth-child(1){--dot-index:0}.intro-dots i:nth-child(2){--dot-index:1}.intro-dots i:nth-child(3){--dot-index:2}.intro-dots i:nth-child(4){--dot-index:3}.intro-dots i:nth-child(5){--dot-index:4}
+.skip-intro{margin-top:8px;padding:8px 12px;border:1px solid var(--glass-border);border-radius:999px;background:var(--glass-bg);color:var(--ink-2);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);font:500 10px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.skip-intro:hover{border-color:var(--accent);color:var(--accent)}
+@keyframes building-draw{to{stroke-dashoffset:0}}
+@keyframes intro-dot{to{background:var(--accent);box-shadow:0 0 9px rgba(var(--accent-rgb),.24);transform:scale(1.15)}}
+@media (prefers-reduced-motion:reduce){
+  .intro-loader{transition:none}
+  .intro-building .draw{animation:none;stroke-dashoffset:0}
+  .intro-dots i{animation:none;background:var(--accent)}
+}
+
+/* Keep the page content above the video and soft theme-matched wash. */
+header.top,main,footer,.lb{position:relative;z-index:3}
+
+/* ── Liquid-glass navigation ── */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border-bottom:1px solid var(--glass-border);
+  box-shadow:var(--glass-shadow);
+  margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px));
+  transition:background .3s,box-shadow .3s;
+}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:68px}
+.brand{font:700 23px/1 var(--f-display);letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;text-decoration:none}
+.brand span{color:var(--accent)}
+.header-actions{display:flex;align-items:center;gap:8px}
+.menu-toggle{width:36px;height:36px;display:grid;align-content:center;justify-items:center;gap:4px;padding:0;border:1px solid var(--glass-border);border-radius:12px;background:var(--glass-bg);color:var(--ink);cursor:pointer;transition:transform .25s,border-color .25s,background .25s}
+.menu-toggle:hover{transform:translateY(-1px);border-color:rgba(var(--accent-rgb),.55)}
+.menu-toggle span{width:17px;height:1.5px;border-radius:2px;background:currentColor;transition:transform .25s,opacity .2s}
+.menu-toggle[aria-expanded="true"] span:first-child{transform:translateY(5.5px) rotate(45deg)}
+.menu-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.menu-toggle[aria-expanded="true"] span:last-child{transform:translateY(-5.5px) rotate(-45deg)}
+.theme-toggle{position:relative;width:58px;height:34px;flex:none;padding:0;border:1px solid var(--glass-border);border-radius:999px;background:var(--glass-bg);box-shadow:inset 0 1px 0 var(--glass-highlight);cursor:pointer;transition:border-color .25s,background .25s}
+.theme-toggle:hover{border-color:rgba(var(--accent-rgb),.48)}
+.theme-thumb{position:absolute;left:4px;top:3px;width:26px;height:26px;display:grid;place-items:center;border-radius:50%;background:linear-gradient(135deg,rgba(var(--accent-rgb),.8),rgba(var(--secondary-rgb),.72));box-shadow:0 3px 9px rgba(var(--secondary-rgb),.18);transition:transform .28s cubic-bezier(.2,.8,.2,1),background .25s}
+.theme-thumb svg{width:14px;height:14px;fill:none;stroke:#fff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.moon-icon{display:none}
+:root[data-theme="dark"] .theme-thumb{transform:translateX(24px);background:linear-gradient(135deg,rgba(var(--secondary-rgb),.9),rgba(var(--accent-rgb),.8))}
+:root[data-theme="dark"] .sun-icon{display:none}
+:root[data-theme="dark"] .moon-icon{display:block}
+nav.links{position:absolute;top:calc(100% + 10px);right:max(12px,env(safe-area-inset-right,0px));display:grid;gap:2px;width:min(150px,calc(100vw - 24px));max-height:calc(100vh - 88px);max-height:calc(100dvh - 88px);overflow:auto;margin:0;padding:8px;border:1px solid var(--glass-border);border-radius:18px;background:var(--glass-bg);box-shadow:var(--glass-shadow),inset 0 1px 0 var(--glass-highlight);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-8px) scale(.98);transform-origin:top right;transition:opacity .22s,transform .22s,visibility 0s linear .22s}
+nav.links.open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0) scale(1);transition:opacity .22s,transform .22s,visibility 0s}
+nav.links .menu-head{display:grid;gap:4px;justify-content:start;padding:6px 8px 8px;margin-bottom:2px;border-bottom:1px solid var(--glass-border)}
+nav.links .menu-head .mono{font-size:8px;letter-spacing:.08em}
+nav.links a{display:block;font:500 13px/1.15 var(--f-body);text-decoration:none;color:var(--ink-2);padding:7px 8px;border-radius:10px;transition:color .2s,background .2s}
+nav.links a:hover{color:var(--ink);background:rgba(var(--accent-rgb),.1)}
+nav.links a.on{color:var(--accent);background:rgba(var(--accent-rgb),.13)}
+
+/* sections */
+section{padding-block:88px;scroll-margin-top:84px}
+section.alt{background:var(--section-wash);margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px))}
+.sec-head{display:grid;gap:14px;margin-bottom:44px;max-width:760px}
+.sec-head h2{font-size:clamp(34px,5vw,56px)}
+.sec-head p{color:var(--ink-2);font-size:19px}
+
+/* Section heading accent underline animation */
+.sec-head h2{
+  display:inline-block;
+  background-image:linear-gradient(var(--accent),var(--accent));
+  background-repeat:no-repeat;
+  background-size:0% 2.5px;
+  background-position:0 100%;
+  transition:background-size .4s ease;
+  padding-bottom:4px;
+}
+.sec-head:hover h2,.sec-head h2:hover{background-size:100% 2.5px}
+
+/* hero */
+.hero{padding-block:72px 80px;position:relative}
+.hero .wrap{position:relative}
+.hero .wrap.split{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.hero .wrap.split>div:first-child{padding:clamp(24px,4vw,42px);border:1px solid var(--glass-border);border-radius:20px}
+.eyebrow{display:flex;align-items:center;gap:10px}
+.eyebrow i{width:9px;height:9px;border-radius:50%;background:var(--signal);display:inline-block}
+.hero h1{font-size:clamp(46px,7vw,88px);margin-block:18px 22px;letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lead{font-size:20px;color:var(--ink-2);max-width:560px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 16px/1 var(--f-body);padding:15px 22px;border-radius:6px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);cursor:pointer;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:hover{filter:brightness(1.08)}
+.hero figure{margin:0;position:relative}
+.hero figure img{width:100%;aspect-ratio:4/4.4;object-fit:cover;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:4px;background:var(--surface)}
+.hero figcaption{margin-top:10px}
+
+/* ── Glassmorphism titleblock ── */
+.titleblock{display:grid;grid-template-columns:repeat(4,1fr);margin-top:56px;
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--glass-shadow);
+  border-radius:12px;
+  overflow:hidden;
+}
+.titleblock div{padding:18px 18px 20px;border-left:1px solid var(--glass-border);min-width:0}
+.titleblock div:first-child{border-left:0}
+.titleblock b{display:block;font:700 clamp(30px,3.6vw,46px)/1 var(--f-display);color:var(--accent);margin-block:8px 6px;font-variant-numeric:tabular-nums}
+.titleblock span.d{font-size:15px;color:var(--ink-2);line-height:1.35;display:block}
+
+/* ── Glassmorphism profile person cards ── */
+.people{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+.person{
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--glass-shadow);
+  border-radius:16px;
+  display:grid;grid-template-columns:minmax(150px,200px) 1fr;gap:26px;padding:26px;min-width:0;
+  transition:box-shadow .3s,transform .3s;
+}
+.person:hover{box-shadow:0 16px 42px rgba(var(--secondary-rgb),.1),var(--glass-shadow);transform:translateY(-3px)}
+.person img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;border:1px solid var(--glass-border);border-radius:12px}
+.shots button,.thumbs button{border-color:var(--glass-border);border-radius:10px;overflow:hidden}
+.person h3{font-size:30px;margin-block:8px 10px}
+.person .q{color:var(--ink-2);font-size:16px;display:grid;gap:3px}
+.person .contact{margin-top:14px;display:grid;gap:3px;font-family:var(--f-mono);font-size:13.5px;overflow-wrap:anywhere}
+.person .exp{grid-column:1/-1;border-top:1px solid var(--glass-border);padding-top:18px}
+.exp ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px}
+.exp li{display:flex;justify-content:space-between;gap:16px;font-size:16px;border-bottom:1px dotted var(--line);padding-bottom:8px}
+.exp li span:last-child{font-family:var(--f-mono);font-size:13px;color:var(--ink-2);white-space:nowrap}
+
+/* ── Glassmorphism services ── */
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--glass-shadow);
+  border-radius:16px;
+  overflow:hidden;
+}
+.svc{padding:30px 28px 32px;border-right:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border);min-width:0;
+  transition:background .25s;}
+.svc:hover{background:rgba(var(--accent-rgb),0.05)}
+.svc:nth-child(3n){border-right:0}.svc:nth-last-child(-n+3){border-bottom:0}
+
+/* ── Bubble glassmorphism ring effect ── */
+.bubble{width:44px;height:44px;border-radius:50%;
+  border:1.5px solid var(--accent);
+  color:var(--accent);
+  display:grid;place-items:center;
+  font:600 19px/1 var(--f-mono);
+  margin-bottom:18px;
+  background:rgba(var(--accent-rgb),0.08);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  box-shadow:0 0 0 4px rgba(var(--accent-rgb),0.07),inset 0 1px 0 rgba(255,255,255,0.2);
+  transition:box-shadow .25s,transform .25s;
+}
+.svc:hover .bubble,.steps li:hover .bubble{
+  box-shadow:0 0 0 8px rgba(var(--accent-rgb),0.12),inset 0 1px 0 rgba(255,255,255,0.25);
+  transform:scale(1.08);
+}
+.svc h3{font-size:25px;margin-bottom:10px}
+.svc p{color:var(--ink-2);font-size:16.5px}
+
+/* ── Glassmorphism expertise panels ── */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.panel{
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--glass-shadow);
+  border-radius:16px;
+  padding:28px;min-width:0;
+  transition:box-shadow .3s,transform .3s;
+}
+.panel:hover{box-shadow:0 16px 42px rgba(var(--secondary-rgb),.1),var(--glass-shadow);transform:translateY(-2px)}
+.panel h3{font-size:28px;margin-bottom:6px}
+.tools{list-style:none;padding:0;margin:18px 0 22px;display:flex;flex-wrap:wrap;gap:8px}
+.tools li{border:1px solid var(--line);padding:8px 14px;font-weight:500;font-size:16px;border-radius:999px;background:var(--bg)}
+.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.shots button{padding:0;border:1px solid var(--line);background:var(--bg);cursor:zoom-in;display:block;overflow:hidden}
+.shots img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.codes{width:100%;border-collapse:collapse;margin-top:16px;font-size:16px}
+.codes td{padding:12px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.codes tr:last-child td{border-bottom:0}
+.codes td:first-child{font:500 14px/1.6 var(--f-mono);color:var(--accent);white-space:nowrap;padding-right:18px}
+
+/* ── Experience case – glass on text side ── */
+.case{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;padding-block:40px;border-top:1px solid var(--line)}
+.case:first-of-type{border-top:0;padding-top:0}
+.case:nth-of-type(even) .case-img{order:2}
+.case-img{position:relative;border:0;padding:0;background:none;cursor:zoom-in;text-align:left}
+.case-img img{width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:4px;background:var(--surface)}
+.case-img .badge{position:absolute;left:12px;bottom:12px;background:var(--surface);border:1px solid var(--line);padding:6px 10px;border-radius:999px}
+/* Glass container for text side of case */
+.case > div:not(.case-img){
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--glass-shadow);
+  border-radius:14px;
+  padding:22px 24px;
+}
+.case .area{font:700 clamp(44px,5.4vw,68px)/1 var(--f-display);color:var(--accent);margin-block:10px 4px}
+.case .area small{font:500 22px/1 var(--f-display);color:var(--ink-2);margin-left:8px;letter-spacing:.02em}
+.case h3{font-size:34px;margin-top:6px}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:10px 22px;margin:22px 0 0;font-size:16.5px}
+.facts dt{font:500 12.5px/1.9 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.facts dd{margin:0}
+.thumbs{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+.thumbs button{padding:0;border:1px solid var(--line);background:var(--surface);cursor:zoom-in;width:84px;height:64px;overflow:hidden}
+.thumbs img{width:100%;height:100%;object-fit:cover}
+
+/* ── Glassmorphism portfolio cards ── */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:30px}
+.chip{border:1px solid var(--line);background:var(--surface);padding:10px 16px;border-radius:999px;font-weight:500;font-size:15.5px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.chip .n{font:500 12.5px/1 var(--f-mono);color:var(--ink-2)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.chip[aria-pressed="true"] .n{color:var(--bg);opacity:.75}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:22px}
+
+/* Glass card */
+.card{
+  display:flex;flex-direction:column;text-align:left;padding:0;
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--glass-shadow);
+  border-radius:16px;
+  cursor:pointer;overflow:hidden;min-width:0;
+  transition:box-shadow .3s,transform .3s,border-color .3s;
+  /* Keep projects visible even when scroll-reveal APIs are unavailable. */
+  opacity:1;transform:translateY(0);
+}
+.card.visible{opacity:1;transform:translateY(0);transition:opacity .55s ease,transform .55s ease,box-shadow .3s,border-color .3s}
+.card:hover{
+  box-shadow:0 18px 42px rgba(var(--secondary-rgb),.12),0 0 0 1px rgba(var(--accent-rgb),.22),inset 0 1px 0 var(--glass-highlight);
+  transform:translateY(-6px);
+  border-color:rgba(var(--accent-rgb),0.35);
+}
+.card .ph{aspect-ratio:4/3;background:var(--bg);overflow:hidden;border-bottom:1px solid var(--glass-border)}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.card:hover .ph img{transform:scale(1.04)}
+.card .ph.fit img{object-fit:contain;background:#fff}
+.card .tx{padding:18px 20px 20px;display:grid;gap:6px}
+.card h3{font-size:24px;line-height:1.1}
+.card .m{color:var(--ink-2);font-size:15.5px}
+.card .foot{display:flex;justify-content:space-between;margin-top:8px}
+
+/* ── Glassmorphism detail cards ── */
+.dgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.dcard{
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--glass-shadow);
+  border-radius:16px;
+  padding:0;text-align:left;cursor:pointer;overflow:hidden;min-width:0;
+  transition:box-shadow .3s,transform .3s;
+  opacity:1;transform:translateY(0);
+}
+.dcard.visible{opacity:1;transform:translateY(0);transition:opacity .5s ease,transform .5s ease,box-shadow .3s}
+.dcard:hover{box-shadow:0 16px 42px rgba(var(--secondary-rgb),.12),var(--glass-shadow);transform:translateY(-4px)}
+.dcard .ph{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;aspect-ratio:1;gap:2px;background:var(--glass-border)}
+.dcard .ph img{width:100%;height:100%;object-fit:cover}
+.dcard .tx{padding:14px 16px 16px;display:grid;gap:4px}
+.dcard h3{font-size:21px;line-height:1.1}
+
+/* ── Glassmorphism credential cards ── */
+.certs{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.cert{
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--glass-shadow);
+  border-radius:16px;
+  padding:14px;cursor:zoom-in;text-align:left;min-width:0;
+  transition:box-shadow .3s,transform .3s;
+  opacity:1;transform:translateY(0);
+}
+.cert.visible{opacity:1;transform:translateY(0);transition:opacity .5s ease,transform .5s ease,box-shadow .3s}
+.cert:hover{box-shadow:0 16px 42px rgba(var(--secondary-rgb),.12),var(--glass-shadow);transform:translateY(-4px)}
+.cert img{width:100%;aspect-ratio:3/4;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:12px}
+.cert .mono{display:block;margin-top:12px}
+.ids{display:flex;flex-wrap:wrap;gap:28px 48px;margin-top:34px;padding-top:24px;border-top:1px solid var(--line)}
+.ids div b{display:block;font:500 18px/1.3 var(--f-mono);color:var(--ink);margin-top:6px;overflow-wrap:anywhere}
+
+/* process */
+.steps{--timeline-gap:14px;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:var(--timeline-gap);position:relative}
+.steps::before{content:"";position:absolute;z-index:0;left:34px;right:calc(20% - 45px);top:22px;height:2px;background:linear-gradient(90deg,var(--accent),rgba(var(--secondary-rgb),.78));opacity:.78;transform:scaleX(0);transform-origin:left;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+#process.timeline-visible .steps::before{transform:scaleX(1)}
+.steps li{position:relative;padding-right:22px}
+.steps .bubble{background:var(--bg);position:relative}
+.steps h3{font-size:23px;margin-bottom:8px}
+.steps p{color:var(--ink-2);font-size:16px}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center}
+.logo-card{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:18px;padding:12px;box-shadow:var(--glass-shadow)}
+.logo-card img{width:100%;height:auto}
+.contact-list{display:grid;gap:20px}
+.contact-list .row{display:grid;gap:4px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.contact-list .v{font:500 22px/1.3 var(--f-mono);overflow-wrap:anywhere}
+.contact a{color:inherit;text-decoration-color:rgba(var(--accent-rgb),.42);text-underline-offset:4px;transition:color .2s ease}
+.contact a:hover,.contact-list a:hover{color:var(--accent)}
+footer{border:1px solid var(--glass-border);border-radius:20px 20px 0 0;padding:24px 26px 30px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:18px 28px}
+.footer-brand,.footer-meta{display:grid;gap:8px}
+.footer-brand .footer-name{font:600 18px/1.2 var(--f-display);letter-spacing:.02em;color:var(--ink)}
+.footer-brand .footer-tagline{color:var(--ink-2);font-size:12px;letter-spacing:.04em}
+.footer-meta{justify-items:end;text-align:right;color:var(--ink-2);font-size:11px;line-height:1.6}
+.footer-meta strong{color:var(--accent);font-weight:600}
+.back-top{position:fixed;z-index:55;right:max(18px,env(safe-area-inset-right,0px));bottom:max(18px,env(safe-area-inset-bottom,0px));width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--glass-border);border-radius:50%;background:var(--glass-bg);color:var(--accent);text-decoration:none;opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0);transition:box-shadow .25s,transform .25s}
+.back-top:hover{transform:translateY(-2px)}
+.back-top svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* Shared Liquid Glass finish for controls and content panels. */
+:is(header.top,.menu-toggle,.theme-toggle,nav.links,.titleblock,.person,.services,.panel,.case>div:not(.case-img),.card,.dcard,.cert,.contact-list,.steps li,.chip,.tools li,.shots button,.thumbs button,.case-img .badge,.logo-card,.ids div,footer,.back-top,.hero .wrap.split>div:first-child,.lb .ctl){
+  background-color:var(--glass-bg);
+  background-image:linear-gradient(135deg,var(--glass-highlight),transparent 48%,rgba(255,255,255,.025)),radial-gradient(85% 100% at 0% 0%,rgba(var(--accent-rgb),.075),transparent 68%),radial-gradient(75% 90% at 100% 100%,rgba(var(--secondary-rgb),.065),transparent 70%);
+  border-color:var(--glass-border);
+  box-shadow:var(--glass-shadow),inset 0 1px 0 var(--glass-highlight);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+}
+.btn{border-color:rgba(var(--accent-rgb),.55);background:linear-gradient(135deg,rgba(var(--accent-rgb),.9),rgba(var(--accent-rgb),.62));box-shadow:0 8px 26px rgba(var(--accent-rgb),.14),inset 0 1px 0 rgba(255,255,255,.55);backdrop-filter:blur(8px) saturate(150%);-webkit-backdrop-filter:blur(8px) saturate(150%);border-radius:999px}
+.btn.ghost{background:var(--glass-bg);color:var(--accent);border-color:var(--glass-border);box-shadow:var(--glass-shadow),inset 0 1px 0 var(--glass-highlight)}
+.hero figure img,.case-img img{border:1px solid var(--glass-border);border-radius:18px;box-shadow:var(--glass-shadow)}
+.logo-card img{border-radius:10px}
+.ids div{padding:14px 18px;border:1px solid var(--glass-border);border-radius:16px}
+.steps li,.chip,.tools li,.case-img .badge,.ids div{transition:background .25s,border-color .25s,box-shadow .25s,transform .25s}
+.contact-list{padding:26px;border:1px solid var(--glass-border);border-radius:16px}
+.chip{border-radius:999px}
+.steps li{padding:60px 16px 18px;border:1px solid var(--glass-border);border-radius:16px}
+.steps li{background-color:transparent;background-image:linear-gradient(180deg,transparent 0 46px,var(--glass-bg) 46px),linear-gradient(135deg,var(--glass-highlight),transparent 48%,rgba(255,255,255,.025)),radial-gradient(85% 100% at 0% 0%,rgba(var(--accent-rgb),.075),transparent 68%),radial-gradient(75% 90% at 100% 100%,rgba(var(--secondary-rgb),.065),transparent 70%)}
+.steps .bubble{position:absolute;z-index:2;left:12px;top:0;margin:0;background:var(--glass-bg)}
+.person:hover,.panel:hover{box-shadow:0 16px 42px rgba(var(--secondary-rgb),.1),var(--glass-shadow)}
+.card:hover{box-shadow:0 18px 42px rgba(var(--secondary-rgb),.12),0 0 0 1px rgba(var(--accent-rgb),.22),inset 0 1px 0 var(--glass-highlight);border-color:rgba(var(--accent-rgb),.32)}
+.dcard:hover,.cert:hover{box-shadow:0 16px 42px rgba(var(--secondary-rgb),.12),var(--glass-shadow)}
+.chip[aria-pressed="true"]{background-color:rgba(var(--accent-rgb),0.14);border-color:var(--accent);color:var(--accent)}
+.chip[aria-pressed="true"] .n{color:var(--accent);opacity:.85}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.78);backdrop-filter:blur(14px) saturate(145%);-webkit-backdrop-filter:blur(14px) saturate(145%);display:none;grid-template-columns:1fr minmax(280px,340px);color:#E7EEF8}
+.lb.open{display:grid}
+.lb .stage{position:relative;display:grid;place-items:center;padding:56px 70px;min-width:0;min-height:0}
+.lb .stage img{max-width:100%;max-height:calc(100vh - 112px);object-fit:contain;background:#fff;border-radius:2px}
+.lb .side{padding:56px 28px 28px;border-left:1px solid rgba(255,255,255,.14);overflow:auto;display:flex;flex-direction:column;gap:12px;background:rgba(14,16,20,.58);backdrop-filter:blur(10px) saturate(150%);-webkit-backdrop-filter:blur(10px) saturate(150%)}
+.lb .side h3{font-size:30px;color:#fff}
+.lb .side p{color:#B9C7DA;font-size:16px}
+.lb .side .mono{color:#8FA3BD}
+.lb .ctl{position:absolute;background:linear-gradient(145deg,rgba(255,255,255,.24),rgba(255,255,255,.06) 56%,rgba(255,255,255,.12));backdrop-filter:blur(8px) saturate(155%);-webkit-backdrop-filter:blur(8px) saturate(155%);border:1px solid rgba(255,255,255,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.42),0 8px 24px rgba(0,0,0,.18);color:#fff;width:46px;height:46px;border-radius:50%;cursor:pointer;font-size:22px;line-height:1;display:grid;place-items:center}
+.lb .ctl:hover{background:rgba(255,255,255,.22)}
+.lb .prev{left:12px;top:50%;transform:translateY(-50%)}
+.lb .next{right:12px;top:50%;transform:translateY(-50%)}
+.lb .close{top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:2}
+
+@media (max-width:980px){
+     .hero .wrap.split{grid-template-columns:1fr;gap:36px}
+  .hero figure img{aspect-ratio:4/3}
+  .titleblock{grid-template-columns:repeat(2,1fr)}
+  .titleblock div:nth-child(3){border-left:0}
+  .titleblock div:nth-child(n+3){border-top:1px solid var(--glass-border)}
+  .people,.two,.contact-grid{grid-template-columns:1fr}
+  .services{grid-template-columns:repeat(2,1fr)}
+  .svc,.svc:nth-child(3n){border-right:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border)}
+  .svc:nth-child(2n){border-right:0}.svc:nth-last-child(-n+2){border-bottom:0}
+  .case{grid-template-columns:1fr;gap:24px}
+  .case:nth-of-type(even) .case-img{order:0}
+  .dgrid{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:1fr;gap:18px}
+  .steps::before{left:21px;right:auto;top:22px;bottom:22px;width:2px;height:auto;transform:scaleY(0);transform-origin:top}
+  #process.timeline-visible .steps::before{transform:scaleY(1)}
+  .steps li{padding:18px 16px 18px 66px;background-image:linear-gradient(90deg,transparent 0 44px,var(--glass-bg) 44px),linear-gradient(135deg,var(--glass-highlight),transparent 48%,rgba(255,255,255,.025)),radial-gradient(85% 100% at 0% 0%,rgba(var(--accent-rgb),.075),transparent 68%),radial-gradient(75% 90% at 100% 100%,rgba(var(--secondary-rgb),.065),transparent 70%)}
+  .steps .bubble{position:absolute;z-index:2;left:0;top:0;margin:0}
+  .lb{grid-template-columns:1fr;grid-template-rows:1fr auto}
+  .lb .stage{padding:60px 16px 12px}
+  .lb .stage img{max-height:calc(100vh - 270px)}
+  .lb .side{border-left:0;border-top:1px solid rgba(255,255,255,.14);padding:18px 18px 22px;max-height:210px}
+  .lb .prev{left:6px}.lb .next{right:6px}
+}
+@media (max-width:640px){
+  section{padding-block:60px}
+  .person{grid-template-columns:1fr}
+  .person img{max-width:200px}
+  .services{grid-template-columns:1fr}
+  .svc,.svc:nth-child(3n),.svc:nth-child(2n){border-right:0;border-bottom:1px solid var(--glass-border)}
+  .svc:last-child{border-bottom:0}
+  .certs{grid-template-columns:1fr}
+  .exp li{flex-direction:column;gap:2px}
+  .brand{font-size:18px}
+  .grid{grid-template-columns:1fr}
+  footer{grid-template-columns:1fr;padding:22px 20px 26px}
+  .footer-meta{justify-items:start;text-align:left}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .menu-toggle span,nav.links,.theme-thumb{transition:none}
+  #process .steps::before{transition:none;transform:scale(1)}
+  .card,.dcard,.cert{transition:none;opacity:1;transform:none}
+  .card.visible,.dcard.visible,.cert.visible{opacity:1;transform:none}
+}
+</style>
+
+<script>
+try{
+  const savedTheme=localStorage.getItem('struha-theme');
+  if(savedTheme==='light'||savedTheme==='dark')document.documentElement.dataset.theme=savedTheme;
+}catch(_){}
+</script>
+
+</head>
+<body>
+
+<!-- Decorative video and soft theme-matched wash behind the portfolio. -->
+<video id="bgVideo" autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1">
+  <source src="media/portfolio-background.mp4" type="video/mp4">
+</video>
+<div class="background-wash" aria-hidden="true"></div>
+
+<div class="intro-loader" id="portfolioIntro" aria-label="Portfolio introduction">
+  <div class="intro-content">
+    <svg class="intro-building" viewBox="0 0 320 300" role="img" aria-label="Line drawing of a structural building under construction">
+      <path class="draw crane" pathLength="1" d="M157 83V28M71 28H238M157 28L191 44M218 28V51M214 51H222"/>
+      <path class="draw outline" pathLength="1" d="M91 252V88H190V252H91ZM190 88L228 106V238L190 252M91 88L130 66L228 106"/>
+      <path class="draw columns" pathLength="1" d="M124 88V252M157 75V252M190 88V252M210 97V244"/>
+      <path class="draw floor-1" pathLength="1" d="M91 121H190L228 133"/>
+      <path class="draw floor-2" pathLength="1" d="M91 154H190L228 160"/>
+      <path class="draw floor-3" pathLength="1" d="M91 187H190L228 186"/>
+      <path class="draw floor-4" pathLength="1" d="M91 220H190L228 212"/>
+      <path class="draw floor-5" pathLength="1" d="M91 252H190L228 238"/>
+      <path class="draw detail" pathLength="1" d="M108 88V121M141 82V121M174 88V121M201 93V124M108 121V154M141 121V154M174 121V154M201 154V184M108 154V187M141 154V187M174 154V187M201 187V216M108 187V220M141 187V220M174 187V220M108 220V252M141 220V252M174 220V252"/>
+    </svg>
+    <div class="intro-brand">Struha Consultant</div>
+    <p class="intro-title">Structural Engineering &amp; Design Solutions</p>
+    <div class="intro-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <button class="skip-intro" id="skipIntro" type="button">Skip intro</button>
+  </div>
+</div>
+<script>
+(()=>{
+  const intro=document.getElementById('portfolioIntro');
+  let introTimer;
+  function closeIntro(){
+    window.clearTimeout(introTimer);
+    intro.classList.add('is-hidden');
+  }
+  document.getElementById('skipIntro').addEventListener('click',closeIntro);
+  introTimer=window.setTimeout(closeIntro,4550);
+})();
+</script>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" data-go="top">Struha <span>Consultant</span></a>
+    <div class="header-actions">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false" title="Toggle light and dark mode">
+        <span class="theme-thumb" aria-hidden="true">
+          <svg class="sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.5"/><path d="M12 2.5v2M12 19.5v2M4.5 4.5l1.4 1.4M18.1 18.1l1.4 1.4M2.5 12h2M19.5 12h2M4.5 19.5l1.4-1.4M18.1 5.9l1.4-1.4"/></svg>
+          <svg class="moon-icon" viewBox="0 0 24 24"><path d="M19.2 15.1A8 8 0 0 1 8.9 4.8 8.5 8.5 0 1 0 19.2 15.1Z"/></svg>
+        </span>
+      </button>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="siteMenu">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+  <nav class="links" id="siteMenu" aria-label="Sections" aria-hidden="true">
+    <div class="menu-head"><span class="mono">Struha Consultant</span><span class="mono">Navigation</span></div>
+    <a href="#profile" data-go="profile">Profile</a>
+    <a href="#services" data-go="services">Services</a>
+    <a href="#expertise" data-go="expertise">Expertise</a>
+    <a href="#experience" data-go="experience">Experience</a>
+    <a href="#portfolio" data-go="portfolio">Projects</a>
+    <a href="#details" data-go="details">Details</a>
+    <a href="#credentials" data-go="credentials">Credentials</a>
+    <a href="#process" data-go="process">Process</a>
+    <a href="#contact" data-go="contact">Contact</a>
+  </nav>
+</header>
+
+<script>
+(()=>{
+  const root=document.documentElement;
+  const navMenu=document.getElementById('siteMenu');
+  const menuToggle=document.getElementById('menuToggle');
+  const themeToggle=document.getElementById('themeToggle');
+  function setMenuOpen(open,returnFocus=false){
+    navMenu.classList.toggle('open',open);
+    navMenu.setAttribute('aria-hidden',String(!open));
+    menuToggle.setAttribute('aria-expanded',String(open));
+    menuToggle.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');
+    if(returnFocus)menuToggle.focus();
+  }
+  function setTheme(theme){
+    const dark=theme==='dark';
+    if(dark)root.dataset.theme='dark';
+    else root.removeAttribute('data-theme');
+    themeToggle.setAttribute('aria-pressed',String(dark));
+    themeToggle.setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');
+    try{localStorage.setItem('struha-theme',dark?'dark':'light')}catch(_){}
+  }
+  setTheme(root.dataset.theme==='dark'?'dark':'light');
+  themeToggle.addEventListener('click',()=>setTheme(themeToggle.getAttribute('aria-pressed')==='true'?'light':'dark'));
+  menuToggle.addEventListener('click',()=>setMenuOpen(menuToggle.getAttribute('aria-expanded')!=='true'));
+  navMenu.addEventListener('click',e=>{if(e.target.closest('a'))setMenuOpen(false,true)});
+  document.addEventListener('click',e=>{if(!e.target.closest('header.top'))setMenuOpen(false)});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&navMenu.classList.contains('open'))setMenuOpen(false,true)});
+})();
+</script>
+
+<main id="top">
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap split">
+    <div>
+      <div class="eyebrow mono"><i></i>Structural engineering consultancy · Pune</div>
+      <h1>Structural Engineering &amp; <em>Design Solutions</em></h1>
+      <p class="lead">RCC, steel and PEB design, stability certification and site support for residential, commercial, industrial and institutional projects.</p>
+      <div class="cta">
+        <a class="btn" href="#portfolio" data-go="portfolio">View projects</a>
+        <a class="btn ghost" href="#contact" data-go="contact">Get in touch</a>
+      </div>
+    </div>
+    <figure>
+      <img src="img/s22_1.jpg" alt="3D render of the residential building at Takala, Kolhapur, designed by Struha Consultant" loading="eager" decoding="async">
+      <figcaption class="mono">Residential building, Takala, Kolhapur</figcaption>
+    </figure>
+  </div>
+  <div class="wrap">
+    <div class="titleblock">
+      <div><span class="mono">Experience</span><b>10+ yrs</b><span class="d">In RCC and steel structural engineering</span></div>
+      <div><span class="mono">Delivered</span><b>100+</b><span class="d">Projects across residential, commercial and industrial sectors</span></div>
+      <div><span class="mono">Designed</span><b>150 Lakh</b><span class="d">Sq. Ft. of construction area in a decade</span></div>
+      <div><span class="mono">In design now</span><b>25 Lakh</b><span class="d">Sq. Ft. under design with Struha</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROFILE -->
+<section id="profile">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="mono">Profile</div>
+      <h2>10+ years of design practice, now under one name</h2>
+      <p>Postgraduate structural engineers who have designed and coordinated projects from foundation to handover.</p>
+    </div>
+    <div class="people">
+      <article class="person">
+        <img src="img/s02_1.jpg" alt="Er. Digambar Ananda Kumbhar, Founder" loading="eager" decoding="async">
+        <div>
+          <div class="mono">Founder</div>
+          <h3>Er. Digambar Ananda Kumbhar</h3>
+          <div class="q"><span>B.E. Civil | M.E. Structure (BITS Pilani)</span><span>MIE-1811244, ISSE-LM2007</span><span>STATE/R/2024/APL/14355</span></div>
+          <div class="contact"><a href="tel:+917729987455">+91 77299 87455</a><a href="mailto:struhaconsultants@gmail.com">struhaconsultants@gmail.com</a></div>
+        </div>
+        <div class="exp">
+          <div class="mono">Experience</div>
+          <ul>
+            <li><span>J+W Consultants LLP, Pune</span><span>2015–2018</span></li>
+            <li><span>Ducon Consultants, Ahmedabad</span><span>2018–2019</span></li>
+            <li><span>S.W. Mone Consultants, Pune</span><span>2019–2025</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="person">
+        <img src="img/s02_2.jpg" alt="Er. Yogini Yadav, Co-Founder" loading="eager" decoding="async">
+        <div>
+          <div class="mono">Co-Founder</div>
+          <h3>Er. Yogini Yadav</h3>
+          <div class="q"><span>B.E. Civil | M.Tech Structure</span><span>7 years of experience in design of RCC and steel structures</span></div>
+          <div class="contact"><a href="tel:+918080396930">+91 80803 96930</a></div>
+        </div>
+        <div class="exp">
+          <div class="mono">Experience</div>
+          <ul>
+            <li><span>Ghunake Consultants, Kolhapur</span><span>2017–2024</span></li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="mono">Services</div>
+      <h2>From foundation to certification</h2>
+      <p>Design, verification and site support, handled by the same team.</p>
+    </div>
+    <div class="services">
+      <div class="svc"><div class="bubble">A</div><h3>RCC &amp; Steel Structural Design</h3><p>Comprehensive analysis and design for all types of reinforced concrete and steel structures.</p></div>
+      <div class="svc"><div class="bubble">B</div><h3>Structural Stability Certification</h3><p>Third-party verification and certification of structural safety as per relevant codes.</p></div>
+      <div class="svc"><div class="bubble">C</div><h3>Retrofitting &amp; Strengthening Solutions</h3><p>Evaluation and upgrading of existing structures to meet current safety and usage standards.</p></div>
+      <div class="svc"><div class="bubble">D</div><h3>Foundation Design</h3><p>Expertise in isolated, raft and pile foundation systems for varied site conditions.</p></div>
+      <div class="svc"><div class="bubble">E</div><h3>Site Execution Support</h3><p>On-site structural consultancy for quality control, supervision and design compliance.</p></div>
+      <div class="svc"><div class="bubble">F</div><h3>PEB &amp; Industrial Structure Design</h3><p>Efficient and cost-effective design of Pre-Engineered Buildings and industrial steel structures.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section id="expertise">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="mono">Expertise</div>
+      <h2>Software and codes behind every design</h2>
+    </div>
+    <div class="two">
+      <div class="panel">
+        <div class="mono">Software proficiency</div>
+        <h3>Analysis and drafting tools</h3>
+        <ul class="tools"><li>STAAD Pro</li><li>ETABS &amp; SAFE</li><li>AutoCAD</li><li>Revit</li><li>Excel design tools &amp; BOQs</li></ul>
+        <div class="shots" id="shots"></div>
+      </div>
+      <div class="panel">
+        <div class="mono">Design standards followed</div>
+        <h3>Indian codes of practice</h3>
+        <table class="codes">
+          <tr><td>IS 456:2000</td><td>Plain and Reinforced Concrete, Code of Practice</td></tr>
+          <tr><td>IS 875</td><td>Code of Practice for Design Loads</td></tr>
+          <tr><td>IS 800</td><td>General Construction in Steel, Code of Practice</td></tr>
+          <tr><td>IS 1893</td><td>Criteria for Earthquake Resistant Design of Structures</td></tr>
+          <tr><td>IS 13920</td><td>Ductile Design and Detailing of Reinforced Concrete Structures in Seismic Loading</td></tr>
+          <tr><td>IS 16700</td><td>Criteria for Structural Safety of Tall Concrete Buildings</td></tr>
+          <tr><td>NBC 2016</td><td>National Building Code</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="mono">Project experience</div>
+      <h2>Large-scale work, coordinated end to end</h2>
+      <p>Four flagship assignments from the founder's first ten years of practice.</p>
+    </div>
+    <div id="cases"></div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="mono">Project spotlight</div>
+      <h2>Selected projects</h2>
+      <p>Select a project to see its drawings, models and site photographs.</p>
+    </div>
+    <div class="filters" id="filters" role="group" aria-label="Filter projects"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- DETAILS -->
+<section id="details" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="mono">Engineering details</div>
+      <h2>Strengthening and structural details</h2>
+      <p>Retrofit, staircase, tank platform and barricading work, shown on site.</p>
+    </div>
+    <div class="dgrid" id="dgrid"></div>
+  </div>
+</section>
+
+<!-- CREDENTIALS -->
+<section id="credentials">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="mono">Certifications and design licenses</div>
+      <h2>Registered and certified</h2>
+    </div>
+    <div class="certs" id="certs"></div>
+    <div class="ids">
+      <div><span class="mono">Membership</span><b>MIE-1811244</b></div>
+      <div><span class="mono">Society</span><b>ISSE-LM2007</b></div>
+      <div><span class="mono">Registration</span><b>STATE/R/2024/APL/14355</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="mono">Structural design workflow</div>
+      <h2>How an assignment runs</h2>
+    </div>
+    <ol class="steps">
+      <li><div class="bubble">1</div><h3>Requirement Discussion</h3><p>Understanding client needs, project scope and structural expectations.</p></li>
+      <li><div class="bubble">2</div><h3>Preliminary Design</h3><p>Conceptual design layout and initial structural scheme preparation.</p></li>
+      <li><div class="bubble">3</div><h3>Final Analysis &amp; Detailing</h3><p>Structural analysis, design calculations and reinforcement detailing.</p></li>
+      <li><div class="bubble">4</div><h3>Drawing Submission</h3><p>Preparation and submission of structural drawings for approval.</p></li>
+      <li><div class="bubble">5</div><h3>Site Coordination &amp; Certification</h3><p>On-site structural coordination and issuing stability certifications.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="mono">Contact</div>
+      <h2>Start a structural assignment</h2>
+      <p>Share your drawings or project brief and we will respond with a scope and timeline.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="logo-card"><img src="img/s01_1.jpg" alt="Struha Consultant logo: Structural Engineering &amp; Design Solutions" loading="eager" decoding="async"></div>
+      <div class="contact-list">
+        <div class="row"><span class="mono">Email</span><a class="v" id="em" href="mailto:struhaconsultants@gmail.com">struhaconsultants@gmail.com</a></div>
+        <div class="row"><span class="mono">Er. Digambar Ananda Kumbhar, Founder</span><a class="v" id="p1" href="tel:+917729987455">+91 77299 87455</a></div>
+        <div class="row"><span class="mono">Er. Yogini Yadav, Co-Founder</span><a class="v" id="p2" href="tel:+918080396930">+91 80803 96930</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="wrap mono">
+  <div class="footer-brand">
+    <span class="footer-name">Struha Consultant</span>
+    <span class="footer-tagline">Structural Engineering &amp; Design Solutions · Pune</span>
+  </div>
+  <div class="footer-meta">
+    <span>© <span id="copyrightYear">2026</span> Struha Consultant. All rights reserved.</span>
+    <span>Designed by <strong>Wonder World Media</strong></span>
+  </div>
+</footer>
+
+<a class="back-top" id="backTop" href="#profile" aria-label="Go to Profile" title="Go to Profile">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6.5 10.5 12 5l5.5 5.5"/></svg>
+</a>
+
+<!-- lightbox -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Project gallery">
+  <div class="stage">
+    <button class="ctl close" id="lbClose" aria-label="Close gallery">&times;</button>
+    <button class="ctl prev" id="lbPrev" aria-label="Previous image">&#8249;</button>
+    <img id="lbImg" alt="">
+    <button class="ctl next" id="lbNext" aria-label="Next image">&#8250;</button>
+  </div>
+  <aside class="side">
+    <div class="mono" id="lbCat"></div>
+    <h3 id="lbTitle"></h3>
+    <div id="lbBody"></div>
+    <div class="mono" id="lbCount" style="margin-top:auto"></div>
+  </aside>
+</div>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s);
+const img=(n,k)=>`img/s${String(n).padStart(2,'0')}_${k}.jpg`;
+const seq=(n,c)=>Array.from({length:c},(_,i)=>img(n,i+1));
+const CAT={res:'Residential',com:'Commercial & mixed use',inst:'Institutional',ind:'Industrial & PEB',spc:'Audit & special structures'};
+
+/* name, cat, place, specs, slide, count, cover index (1-based), fit (drawings), captions */
+const P=[
+ {n:10,name:'New Front Group',cat:'res',place:'Hadapsar and Dhayari, Pune',specs:['48 Central Park, Hadapsar: Basement + 15 floors residential','Marvella, Dhayari: Basement + 11 floors residential'],c:2,k:2,caps:['48 Central Park, Hadapsar','Marvella, Dhayari']},
+ {n:11,name:'Krisala Developer',cat:'com',place:'',specs:['41 Commune: commercial + residential building'],c:3,k:1},
+ {n:12,name:'Solitaire',cat:'res',place:'Kothrud, Pune',specs:['Tower A, B and SRA'],c:5,k:1},
+ {n:13,name:'Skyline Developers',cat:'res',place:'',specs:['5 projects successfully completed'],c:5,k:2},
+ {n:14,name:'Indeco Reality',cat:'com',place:'Mundhwa, Pune',specs:['2 commercial towers'],c:5,k:1},
+ {n:15,name:'Siddh Group',cat:'res',place:'',specs:['Wings A, B and C: Ground + 9 residential floors'],c:3,k:2},
+ {n:16,name:'High-rise at Katraj',cat:'res',place:'Katraj, Pune',specs:['2 towers: Basement + Ground + 28 floors','1 MHADA building: 7 floors','4.65 Lakh Sq. Ft. construction area'],c:2,k:1,fit:1},
+ {n:17,name:'High-rise at Dattanagar',cat:'res',place:'Dattanagar, Pune',specs:['2 towers: Basement + Ground + 26 floors','6.5 Lakh Sq. Ft. construction area'],c:2,k:1,fit:1},
+ {n:18,name:'School Building',cat:'inst',place:'Gahunje, Pune',specs:['Ground + 4 floors (3 provisional floors)','1 Lakh Sq. Ft. construction area'],c:4,k:2},
+ {n:19,name:'Incubation Center',cat:'inst',place:'Belgaum',specs:['Ground + 4 floors','35,000 Sq. Ft. construction area'],c:2,k:1},
+ {n:20,name:'Commercial + Residential',cat:'com',place:'Kolhapur',specs:['Basement + Ground + 4 office floors + 2 residential floors','63,000 Sq. Ft. construction area'],c:2,k:1},
+ {n:21,name:'Residential Building',cat:'res',place:'Rankala, Kolhapur',specs:['Wing A and Wing B: Basement + Ground + 7 residential floors','1,65,000 Sq. Ft. construction area','Progress: Wing B 5th slab completed, Wing A excavation completed'],c:3,k:1,fit:1},
+ {n:22,name:'Residential Building',cat:'res',place:'Takala, Kolhapur',specs:['3 Basements + Ground + Office floor + 7 residential floors','1,05,000 Sq. Ft. construction area'],c:2,k:1},
+ {n:23,name:'College Building',cat:'inst',place:'Ichalkaranji, Kolhapur',specs:['Ground + 5 floors','85,000 Sq. Ft. construction area'],c:2,k:1},
+ {n:24,name:'Residential Building',cat:'res',place:'Ichalkaranji, Kolhapur',specs:['Ground + 6 floors','45,000 Sq. Ft. construction area'],c:2,k:2},
+ {n:25,name:'PEB Shed',cat:'ind',place:'Pune',specs:['Pre-engineered building: design drawings and site photographs'],c:6,k:4},
+ {n:26,name:'Liberty International Ltd',cat:'ind',place:'GIDC, Gujarat',specs:['Industrial steel structure: design drawings and site photographs'],c:4,k:3},
+ {n:27,name:'Akreeti Apartment',cat:'res',place:'Pune',specs:['Ground + 6 residential floors'],c:2,k:1,fit:1},
+ {n:28,name:'SK Complex',cat:'com',place:'Pune',specs:['Basement + Shop + Mezzanine + 1 commercial + 2 residential floors'],c:3,k:2},
+ {n:29,name:'Kolapkar Developer',cat:'res',place:'Pune',specs:['Residential building: Ground + 6 floors','Analysis: ETABS model'],c:3,k:3},
+ {n:30,name:'Paradise Cove',cat:'res',place:'Bavada, Kolhapur',specs:['Ground + 1 podium floor + 8 residential floors'],c:4,k:1,fit:1},
+ {n:31,name:'Bhairavnath Temple',cat:'spc',place:'Baner, Pune',specs:['Temple structure: drawings and 3D model'],c:4,k:2},
+ {n:32,name:'Structural Audit',cat:'spc',place:'Goa',specs:['Sports complex with steel and RCC structure','A sports complex partially constructed in 2014 required a detailed structural audit and condition assessment to determine its present structural safety, durability and suitability for completion of the remaining construction work.'],c:3,k:2},
+ {n:33,name:'Bungalows',cat:'res',place:'',specs:['75+ RCC bungalows, with and without sanctioned plans','10+ temples completed','25+ apartment buildings of G+4 to G+7 floors'],c:12,k:12}
+];
+
+const CASES=[
+ {n:6,c:2,k:2,area:'18',client:'Panchshil Developer',title:'Kharadi 40',type:'Commercial building',
+  project:'3 Basements + 2 parking floors + 17 office floors',hl:'Single-handedly coordinated and successfully completed the project',
+  role:'Design and analysis of structure, coordination, site execution checking',order:[2,1]},
+ {n:7,c:2,k:2,area:'50',client:'Yashada Developer',title:'Evo Project, Punawale',type:'Residential, hotel and office',
+  project:'9 towers (32 floors residential), 1 hotel building and 1 office building',hl:'Coordinated and successfully completed the project',
+  role:'Design and analysis of structure, coordination, site execution checking',order:[2,1]},
+ {n:8,c:3,k:1,area:'25',client:'Rohan Harita',title:'Tathawade',type:'Residential, 9 towers',
+  project:'2 Basements + 4 parking floors + 28 to 32 residential floors',hl:'Single-handedly coordinated and successfully completed the project',
+  role:'Design and analysis of structure, coordination, site execution checking',order:[1,3,2]},
+ {n:9,c:3,k:3,area:'10',client:'IIT Bombay',title:'Campus buildings',type:'Hostel, academic and housing',
+  project:'Hostel 4 (G+10) · Academic Science Blocks 1 & 2 (1 Basement + 10) · Efficiency Housing (Lower Ground + 23) · 2 BHK and 3 BHK residences (Ground + 23)',hl:'Single-handedly coordinated and successfully completed the project',
+  role:'Design and analysis of structure, coordination, site execution checking, peer review checking with Prof. Jangid',order:[3,1,2]}
+];
+
+const DET=[
+ {t:'Folded staircase details',imgs:[1,2]},{t:'Column strengthening details',imgs:[3,4]},
+ {t:'Elevated tank platform',imgs:[5]},{t:'External barricading',imgs:[6,7]}
+];
+const CERT=[{k:1,t:'Institution of Engineers (India) membership'},{k:2,t:'Licence certificate'},{k:3,t:'Supporting registration document'}];
+
+/* ---------- lightbox ---------- */
+const lb=$('#lb');let L={items:[],i:0,meta:{}};let lastFocus=null;
+function openLB(items,i,meta){L={items,i,meta};lastFocus=document.activeElement;lb.classList.add('open');document.body.style.overflow='hidden';draw();$('#lbClose').focus()}
+function closeLB(){lb.classList.remove('open');document.body.style.overflow='';if(lastFocus)lastFocus.focus()}
+function draw(){
+  const it=L.items[L.i],m=L.meta;
+  const im=$('#lbImg');im.src=it.src;im.alt=(m.title||'')+(it.cap?' – '+it.cap:'');
+  $('#lbCat').textContent=m.cat||'';$('#lbTitle').textContent=m.title||'';
+  $('#lbBody').innerHTML=(m.place?`<p class="mono" style="margin-bottom:10px">${m.place}</p>`:'')+  (m.specs||[]).map(s=>`<p style="margin-bottom:8px">${s}</p>`).join('')+(it.cap?`<p class="mono" style="margin-top:12px">${it.cap}</p>`:'');
+  $('#lbCount').textContent=(L.i+1)+' / '+L.items.length;
+  const many=L.items.length>1;$('#lbPrev').style.display=$('#lbNext').style.display=many?'grid':'none';
+}
+const step=d=>{L.i=(L.i+d+L.items.length)%L.items.length;draw()};
+$('#lbClose').onclick=closeLB;$('#lbPrev').onclick=()=>step(-1);$('#lbNext').onclick=()=>step(1);
+lb.addEventListener('click',e=>{if(e.target===lb||e.target.classList.contains('stage'))closeLB()});
+document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape')closeLB();else if(e.key==='ArrowLeft')step(-1);else if(e.key==='ArrowRight')step(1);
+  else if(e.key==='Tab'){const f=[...lb.querySelectorAll('button')].filter(b=>b.offsetParent!==null);const a=document.activeElement;
+    if(e.shiftKey&&a===f[0]){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&a===f[f.length-1]){e.preventDefault();f[0].focus()}}});
+
+/* ---------- software shots ---------- */
+const shotCaps=['STAAD Pro','ETABS','SAFE'];
+$('#shots').innerHTML=[1,2,3].map(k=>`<button data-k="${k}" aria-label="Open ${shotCaps[k-1]} screenshot"><img src="${img(4,k)}" alt="${shotCaps[k-1]} screenshot" loading="eager" decoding="async"></button>`).join('');
+$('#shots').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  openLB([1,2,3].map(k=>({src:img(4,k),cap:shotCaps[k-1]})),+b.dataset.k-1,{cat:'Software proficiency',title:'Analysis and design software',specs:['STAAD Pro, ETABS & SAFE, AutoCAD, Revit, Excel design tools and BOQs']})});
+
+/* ---------- experience cases ---------- */
+$('#cases').innerHTML=CASES.map((c,ci)=>{
+  const items=c.order.map(k=>img(c.n,k));
+  return `<article class="case">
+    <button class="case-img" data-ci="${ci}" aria-label="Open ${c.title} gallery"><img src="${img(c.n,c.k)}" alt="${c.title}" loading="eager" decoding="async"><span class="badge mono">${items.length} images</span></button>
+    <div>
+      <div class="mono">${c.type}</div>
+      <h3>${c.title}</h3>
+      <div class="area">${c.area} Lakh<small>Sq. Ft.</small></div>
+      <dl class="facts">
+        <dt>Client</dt><dd>${c.client}</dd>
+        <dt>Project</dt><dd>${c.project}</dd>
+        <dt>Highlight</dt><dd>${c.hl}</dd>
+        <dt>Role</dt><dd>${c.role}</dd>
+      </dl>
+      <div class="thumbs">${items.map((s,i)=>`<button data-ci="${ci}" data-i="${i}" aria-label="Open image ${i+1}"><img src="${s}" alt="" loading="eager" decoding="async"></button>`).join('')}</div>
+    </div></article>`}).join('');
+$('#cases').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const c=CASES[+b.dataset.ci];
+  const items=c.order.map(k=>({src:img(c.n,k)}));const i=b.dataset.i?+b.dataset.i:0;
+  openLB(items,i,{cat:'Project experience · '+c.client,title:c.title,specs:[c.area+' Lakh Sq. Ft. construction area',c.project]})});
+
+/* ---------- portfolio ---------- */
+const counts={all:P.length};P.forEach(p=>counts[p.cat]=(counts[p.cat]||0)+1);
+let cur='all';
+function chips(){$('#filters').innerHTML=[['all','All projects'],...Object.entries(CAT)].map(([k,v])=>`<button class="chip" data-f="${k}" aria-pressed="${k===cur}">${v}<span class="n">${counts[k]||0}</span></button>`).join('')}
+function grid(){
+  $('#grid').innerHTML=P.map((p,i)=>({p,i})).filter(({p})=>cur==='all'||p.cat===cur).map(({p,i})=>`
+   <button class="card" data-i="${i}" aria-label="Open ${p.name}${p.place?', '+p.place:''}">
+     <div class="ph${p.fit?' fit':''}"><img src="${img(p.n,p.k)}" alt="${p.name}${p.place?', '+p.place:''}" loading="eager" decoding="async"></div>
+     <div class="tx"><div class="mono">${CAT[p.cat]}</div><h3>${p.name}</h3>${p.place?`<div class="m">${p.place}</div>`:''}<div class="m">${p.specs[0].length>70?p.specs[0].slice(0,68).replace(/[ ,:]+\S*$/,'')+'…':p.specs[0]}</div>
+     <div class="foot mono"><span>${p.c} images</span><span>View</span></div></div>
+   </button>`).join('');
+  // Re-observe cards after grid rebuild
+  observeReveal();
+}
+$('#filters').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;cur=b.dataset.f;chips();grid()});
+$('#grid').addEventListener('click',e=>{const b=e.target.closest('.card');if(!b)return;const p=P[+b.dataset.i];
+  let items=Array.from({length:p.c},(_,j)=>({src:img(p.n,j+1),cap:p.caps?p.caps[j]:''}));
+  const first=items.splice(p.k-1,1)[0];items.unshift(first);
+  openLB(items,0,{cat:CAT[p.cat],title:p.name,place:p.place,specs:p.specs})});
+chips();grid();
+
+/* ---------- details ---------- */
+$('#dgrid').innerHTML=DET.map((d,i)=>`<button class="dcard" data-i="${i}" aria-label="Open ${d.t}"><div class="ph">${d.imgs.map(k=>`<img src="${img(34,k)}" alt="${d.t}" loading="eager" decoding="async">`).join('')}</div><div class="tx"><h3>${d.t}</h3><span class="mono">${d.imgs.length} ${d.imgs.length>1?'images':'image'}</span></div></button>`).join('');
+$('#dgrid').addEventListener('click',e=>{const b=e.target.closest('.dcard');if(!b)return;const d=DET[+b.dataset.i];
+  openLB(d.imgs.map(k=>({src:img(34,k)})),0,{cat:'Engineering details',title:d.t,specs:[]})});
+
+/* ---------- credentials ---------- */
+$('#certs').innerHTML=CERT.map((c,i)=>`<button class="cert" data-i="${i}" aria-label="Open ${c.t}"><img src="${img(35,c.k)}" alt="${c.t}" loading="eager" decoding="async"><span class="mono">${c.t}</span></button>`).join('');
+$('#certs').addEventListener('click',e=>{const b=e.target.closest('.cert');if(!b)return;
+  openLB(CERT.map(c=>({src:img(35,c.k),cap:c.t})),+b.dataset.i,{cat:'Certifications and design licenses',title:'Credentials',specs:['MIE-1811244','ISSE-LM2007','STATE/R/2024/APL/14355']})});
+
+/* ---------- navigation ---------- */
+const links=[...document.querySelectorAll('[data-go]')];
+links.forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const t=document.getElementById(a.dataset.go);if(t)t.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'})}));
+const navLinks=[...document.querySelectorAll('nav.links a')];
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){navLinks.forEach(a=>a.classList.toggle('on',a.dataset.go===en.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});
+  navLinks.forEach(a=>{const s=document.getElementById(a.dataset.go);if(s&&a.dataset.go!=='top')io.observe(s)});
+}
+const processSection=$('#process');
+if(processSection){
+  if('IntersectionObserver' in window){
+    const timelineObserver=new IntersectionObserver(entries=>{
+      if(entries.some(entry=>entry.isIntersecting)){
+        processSection.classList.add('timeline-visible');
+        timelineObserver.disconnect();
+      }
+    },{threshold:.08});
+    timelineObserver.observe(processSection);
+  }else processSection.classList.add('timeline-visible');
+}
+const copyrightYear=$('#copyrightYear');
+if(copyrightYear)copyrightYear.textContent=new Date().getFullYear();
+
+/* ════════════════════════════════════════════════
+   SCROLL-REVEAL  (IntersectionObserver)
+   Fade-in + slide-up for .card, .dcard, .cert
+   ════════════════════════════════════════════════ */
+function observeReveal(){
+  if(!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.card,.dcard,.cert').forEach(el=>{el.classList.add('visible')});
+    return;
+  }
+  const rv=new IntersectionObserver(entries=>{
+    entries.forEach((en,idx)=>{
+      if(en.isIntersecting){
+        // Stagger delay based on sibling position
+        const siblings=[...en.target.parentElement.children];
+        const pos=siblings.indexOf(en.target);
+        en.target.style.transitionDelay=(pos*60)+'ms';
+        en.target.classList.add('visible');
+        rv.unobserve(en.target);
+      }
+    });
+  },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.card,.dcard,.cert').forEach(el=>{
+    if(!el.classList.contains('visible')) rv.observe(el);
+  });
+}
+observeReveal();
+
+(function(){
+  const bgVideo=document.getElementById('bgVideo');
+  const motionQuery=matchMedia('(prefers-reduced-motion:reduce)');
+  function syncBackgroundMotion(){
+    if(motionQuery.matches){bgVideo.pause();return}
+    const playback=bgVideo.play();
+    if(playback&&typeof playback.catch==='function') playback.catch(()=>{});
+  }
+  syncBackgroundMotion();
+  motionQuery.addEventListener?.('change',syncBackgroundMotion);
+})();
+</script>
+</body>
+</html>
